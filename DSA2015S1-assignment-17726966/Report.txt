@@ -1,0 +1,41 @@
+5.1.2.1 - Adding a pallet
+	To find a sensible way for pallet insertion in my program, I decided to use a random number generator (Math.random()) to randomize a number between 0 and 2. 
+	If the number is 0, an insertion will be done into the stack, if the number was 1, an insertion will be done to the queue and if 2 then an insertion into the array. 
+	This way, a widespread of items can be distributed amongst the three storage banks. 
+	The distribution may not be as even depending on what the randomiser gives us but it will give us an even chance for items to be slotted in one of the three storage banks. [figure1.jpg]
+
+	In relation to the picture of the production code on the right, the code prompts to tokenize each bit of the CSV file seperated by commas and allocate them to their respective fields. 
+	Due to expiry being a Date class object, the Date object needs to be made by having imports of year, month and day. 
+	Using the StringTokenzier function, the expiry extract is in a String format of YYYY-MM-DD. 
+	The year, month and day need to be split up. So by putting expiry into a StringTokenzier with a delimiter "-", the year, month and day are extracted as Strings. 
+	Each of those strings need to be parsed as an integer for a numerical value to create a Date class object. 
+	The Date object is created within the alternate constructor of the Pallet class. [figure2.jpg]
+
+5.1.2.2 - Removing a pallet
+	To find a suitable way to remove a pallet, I found that checking the top item of the stack, front most item of the queue and all elements of the array was the way to go. 
+	The reason for ONLY checking the top item of the stack is because the algorithm, if it finds a pallet in the middle of a stack or a queue, it would be considered "STUCK" so there is no point of trying to remove a stuck pallet. 
+	This reasoning is the same for a queue, if it is "STUCK", there is no point of trying to get it out for removal. 
+	The stack is a Last-In-First-Out data structure which prioritises the top most item to be removed first, so it would be illogical to swap items and have the top most item as first priority to be removed second from the item we want removed from the middle of the stack. 
+	The queue was constructed to be a First-In-First-Out normal queue, where the first item in will be the first item out. 
+	The queue constructed is NOT a circular queue or a priority queue so by inserting a pallet, we have to keep in mind that there is not swapping of elements in the queue and the first item that is inserted will be the first item out regardless of how important another pallet may be. 
+	The array is a non-restricted insertion, therefore, the removal function must search through the whole array for removal. [figure3.jpg]
+
+	stackPallet, queuePallet and arrayCount are variables that checks the amount of items within a stack, queue and array respectively. 
+	By checking whether the stack, queue and array are empty, the removal function can skip storage banks depending on if the storage bank's current amount of items. 
+	Having a 'found' variable checks whether the algorithm has found the required removal item or not within the 3 types of storage banks. 
+	Notice that the stack and queue are all done first before the array, this is due to priorities where a stack is a Last-In-First-Out storage and a queue is a First-In-First-Out storage. 
+	This way, only two items are checked and the removal is specific to only the top and front item rather than an array where any item can be removed at any place. [figure3.jpg]
+
+	By having a 'found' variable to dictate whether the removal item is found or not will allow the algorithm to output a certain message if the removal item isn't found. 
+	If the removal item is found, there is no need to output a "NOT FOUND" message and all the algorithm does is remove the item from the specific storage bank(s). [figure4.jpg]
+	 
+5.1.2.3 - Searching a pallet
+	For searching for a pallet, I decided to use a bubble sorting algorithm to sort all pallets that have the required search phrase shuffle down to one end of the array so searching. 
+	Although, by having the algorithm shift all its elements down one end of the array, searching still needs to evaluate through the whole storage bank.
+
+	Giving a search CSV file will include a series of phrases to search for seperated by commas. 
+	The try-catch statement evaluates whether the first phrase is a serial number and if it is, a isNumber boolean is set to true to execute the next calculation in the method. [figure5.jpg]
+
+	By having the isNumber boolean as true, this will bubble sort the stack, queue and array and push all numbers that are less than the serial number that was parsed to one end and arrange the array in ascending order. 
+	The algorithm will then check the stack (if it is not empty) for the serial number that was parsed to find a pallet containing that serial number. The program will print the pallet details to the user with a integer representing the storage bank and the index at which the pallet is stored in along with the details of the pallet. 
+	This operation is also done with the queue and array to find the specific pallets that contain that serial number and will set the found variable (which signifies whether a pallet is found) to true. [figure6.jpg]
